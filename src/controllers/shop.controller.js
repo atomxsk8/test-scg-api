@@ -19,7 +19,7 @@ const getShops = catchAsync(async (req, res) => {
 const getShop = catchAsync(async (req, res) => {
     const shop = await shopService.getShopById(req.params.shopId);
     if (!shop) {
-      throw new ApiError(httpStatus.NOT_FOUND, 'Shop not found');
+      throw new ApiError(httpStatus.NOT_FOUND, 'DVM not found');
     }
     res.send(shop);
 });

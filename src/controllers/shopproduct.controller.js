@@ -21,7 +21,7 @@ const getShopProducts = catchAsync(async (req, res) => {
 const getShopProduct = catchAsync(async (req, res) => {
     const shop = await shopProductService.getShopProductById(req.params.shopProductId);
     if (!shop) {
-      throw new ApiError(httpStatus.NOT_FOUND, 'Shop Product not found');
+      throw new ApiError(httpStatus.NOT_FOUND, 'DVM Product not found');
     }
     res.send(shop);
 });
@@ -52,7 +52,7 @@ const buyShopProduct = catchAsync(async (req, res) => {
         from: 'TEST SCG API',               
         to: emailUsers,               
         subject: `แจ้งเตือนสินค้าใกล้หมด`,              
-        html: `<b>แจ้งเตือน สินค้า : ${newShop.product.name} ร้าน : ${newShop.shop.name} ใกล้หมด (คงเหลือ ${qty})</b>`   
+        html: `<b>แจ้งเตือน สินค้า : ${newShop.product.name}, DVM : ${newShop.shop.name} คงเหลือ ${qty}</b>`   
       })
     }
     res.send(newShop);

@@ -9,7 +9,7 @@ const ApiError = require('../utils/ApiError');
  */
 const createShopProduct = async (shopProductBody) => {
     if (await ShopProduct.isShopTakenItem(shopProductBody)) {
-      throw new ApiError(httpStatus.BAD_REQUEST, 'Shop Product already taken');
+      throw new ApiError(httpStatus.BAD_REQUEST, 'DVM Product already taken');
     }
     const shopProduct = await ShopProduct.create(shopProductBody);
     return shopProduct;
@@ -47,10 +47,10 @@ const getShopProductById = async (id) => {
 const updateShopProductById = async (shopProductId, updateBody) => {
     const shopProduct = await getShopProductById(shopProductId);
     if (!shopProduct) {
-      throw new ApiError(httpStatus.NOT_FOUND, 'ShopProduct not found');
+      throw new ApiError(httpStatus.NOT_FOUND, 'DVM Product not found');
     }
     if (await ShopProduct.isShopTakenItem(updateBody, shopProductId)) {
-      throw new ApiError(httpStatus.BAD_REQUEST, 'Shop Product already taken');
+      throw new ApiError(httpStatus.BAD_REQUEST, 'DVM Product already taken');
     }
     Object.assign(shopProduct, updateBody);
     await shopProduct.save();
@@ -65,7 +65,7 @@ const updateShopProductById = async (shopProductId, updateBody) => {
 const deleteShopProductById = async (shopProductId) => {
     const shopProduct = await getShopProductById(shopProductId);
     if (!shopProduct) {
-      throw new ApiError(httpStatus.NOT_FOUND, 'ShopProduct not found');
+      throw new ApiError(httpStatus.NOT_FOUND, 'DVM Product not found');
     }
     await shopProduct.remove();
     return shopProduct;

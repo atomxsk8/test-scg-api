@@ -47,7 +47,7 @@ const getShopById = async (id) => {
 const updateShopById = async (shopId, updateBody) => {
     const shop = await getShopById(shopId);
     if (!shop) {
-      throw new ApiError(httpStatus.NOT_FOUND, 'Shop not found');
+      throw new ApiError(httpStatus.NOT_FOUND, 'DVM not found');
     }
     if (updateBody.name && (await Shop.isNameTaken(updateBody.name, shopId))) {
       throw new ApiError(httpStatus.BAD_REQUEST, 'Name already taken');
@@ -65,7 +65,7 @@ const updateShopById = async (shopId, updateBody) => {
 const deleteShopById = async (shopId) => {
     const shop = await getShopById(shopId);
     if (!shop) {
-      throw new ApiError(httpStatus.NOT_FOUND, 'Shop not found');
+      throw new ApiError(httpStatus.NOT_FOUND, 'DVM not found');
     }
     await shop.remove();
     return shop;
