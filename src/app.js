@@ -38,8 +38,12 @@ app.use(mongoSanitize());
 app.use(compression());
 
 // enable cors
-app.use(cors({ origin: config.cor_origin, credentials: true }));
-// app.options('*', cors());
+const corsConfig = {
+  origin: true,
+  credentials: true,
+};
+app.use(cors(corsConfig));
+app.options('*', cors(corsConfig));
 
 app.use(cookieParser());
 
