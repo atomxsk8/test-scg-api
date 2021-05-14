@@ -38,7 +38,7 @@ app.use(mongoSanitize());
 app.use(compression());
 
 // enable cors
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+app.use(cors({ origin: config.cor_origin, credentials: true }));
 // app.options('*', cors());
 
 app.use(cookieParser());

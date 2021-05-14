@@ -24,6 +24,7 @@ if (error) {
 module.exports = {
     env: envVars.NODE_ENV,
     port: envVars.PORT,
+    cor_origin: envVars.COR_ORIGIN,
     mongoose: {
       url: envVars.MONGODB_URL + (envVars.NODE_ENV === 'test' ? '-test' : ''),
       options: {
