@@ -57,8 +57,8 @@ const buyShopProduct = catchAsync(async (req, res) => {
       sendEmail({
         from: 'TEST SCG API',               
         to: emailUsers,               
-        subject: `แจ้งเตือนสินค้าใกล้หมด`,              
-        html: `<b>แจ้งเตือน สินค้า : ${newShop.product.name}, ${newShop.shop.name} คงเหลือ ${qty}</b>`   
+        subject: `แจ้งเตือนสินค้า`,              
+        html: `<b>แจ้งเตือน สินค้า : ${shop.product.name}, ${shop.shop.name} คงเหลือ ${qty}</b>`   
       })
     }
     res.send(newShop);
