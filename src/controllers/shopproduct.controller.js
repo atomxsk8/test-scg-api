@@ -44,18 +44,22 @@ const buyShopProduct = catchAsync(async (req, res) => {
   }else if(qty < 0) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'There are not enough products.');
   }else {
-    const newShop = await shopProductService.updateShopProductById(req.params.shopProductId, { qty });
-    if(qty < 10) {
-      const users = await queryAllUsers()
-      const emailUsers = users.map(user => user.email)
-      sendEmail({
-        from: 'TEST SCG API',               
-        to: emailUsers,               
-        subject: `แจ้งเตือนสินค้าใกล้หมด`,              
-        html: `<b>แจ้งเตือน สินค้า : ${newShop.product.name}, DVM : ${newShop.shop.name} คงเหลือ ${qty}</b>`   
-      })
+    const s = await shopProductService.getShopProductById(req.params.shopProductId);
+    if(!s.qty) { throw new ApiError(httpStatus.BAD_REQUEST, 'Out of stock!'); }
+    else{
+      const newShop = await shopProductService.updateShopProductById(req.params.shopProductId, { qty });
+      if(qty < 10) {
+        const users = await queryAllUsers()
+        const emailUsers = users.map(user => user.email)
+        sendEmail({
+          from: 'TEST SCG API',               
+          to: emailUsers,               
+          subject: `แจ้งเตือนสินค้าใกล้หมด`,              
+          html: `<b>แจ้งเตือน สินค้า : ${newShop.product.name}, ${newShop.shop.name} คงเหลือ ${qty}</b>`   
+        })
+      }
+      res.send(newShop);
     }
-    res.send(newShop);
   }
 });
 
